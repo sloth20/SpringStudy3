@@ -29,24 +29,7 @@ function sendOk() {
 	f.submit();
 }
 
-$(function(){
-	$("form input[name=upload]").change(function(){
-		if(!$(this).val()) return;
-		
-		var b=false;
-		$("form input[name=upload]").each(function(){
-			if(! $(this).val()){
-				b=true;
-				return;
-			}
-		});
-		if(b) return false;
-				
-		var $tr = $(this).closest("tr").clone(true); // 이벤트도 복제 
-		$tr.find("input").val("");
-		$("#noticetb").append($tr);
-	});
-});
+
 
 <c:if test = "${mode=='update'}">
 	function deleteFile(fileNum){

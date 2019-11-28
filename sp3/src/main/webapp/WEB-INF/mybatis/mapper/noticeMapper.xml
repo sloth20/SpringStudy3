@@ -34,7 +34,8 @@
 			</when>
 			<when test="condition=='created'">
 				( TO_CHAR(created, 'YYYY-MM-DD') = #{keyword}
-				OR TO_CHAR(created, 'YYYYMMDD') = #{keyword} )
+				OR
+				TO_CHAR(created, 'YYYYMMDD') = #{keyword} )
 			</when>
 			<otherwise>
 				INSTR(${condition},#{keyword}) &gt; 0
@@ -45,7 +46,8 @@
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*),0)
 		FROM notice n
-		JOIN member1 m ON n.userId = m.userId
+		JOIN member1 m ON n.userId =
+		m.userId
 		<where>
 			<if test="keyword != null and keyword != '' ">
 				<include refid="where-list" />
@@ -54,27 +56,38 @@
 	</select>
 
 	<select id="listNoticeTop" resultType="com.sp.notice.Notice">
-		SELECT n.num, n.userId, userName, notice, subject, 
-		content, hitCount,TO_CHAR(created, 'YYYY-MM-DD')  created, NVL(fileCount, 0) fileCount
-		FROM notice n JOIN member1 m1 ON n.userId=m1.userId
-		LEFT OUTER JOIN (
-			SELECT num, COUNT(*) fileCount FROM noticeFile
-			GROUP BY num
+		SELECT n.num, n.userId,
+		userName, notice, subject,
+		content, hitCount,TO_CHAR(created,
+		'YYYY-MM-DD') created, NVL(fileCount, 0)
+		fileCount
+		FROM notice n JOIN
+		member1 m1 ON n.userId=m1.userId
+		LEFT OUTER
+		JOIN (
+		SELECT num, COUNT(*)
+		fileCount FROM noticeFile
+		GROUP BY num
 		)f ON n.num = f.num
-		WHERE NOTICE = 1
+		WHERE NOTICE =
+		1
 		ORDER BY num DESC
 	</select>
 
 	<select id="listNotice" parameterType="map"
 		resultType="com.sp.notice.Notice">
-		SELECT n.num, n.userId, userName, notice, subject, 
-		content, hitCount, created, NVL(fileCount, 0) fileCount
-		FROM notice n JOIN member1 m1 ON n.userId=m1.userId
+		SELECT n.num, n.userId, userName, notice, subject,
+		content, hitCount,
+		created, NVL(fileCount, 0) fileCount
+		FROM notice n JOIN
+		member1 m1 ON
+		n.userId=m1.userId
 		LEFT OUTER JOIN (
-			SELECT num, COUNT(*) fileCount FROM noticeFile
-			GROUP BY num
+		SELECT num, COUNT(*) fileCount FROM
+		noticeFile
+		GROUP BY num
 		)f ON n.num = f.num
-		
+
 		<where>
 			<if test="keyword != null and keyword != '' ">
 				<include refid="where-list" />
@@ -84,6 +97,80 @@
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 
-	
+	<select id="readNotice" parameterType="Integer"
+		resultType="com.sp.notice.Notice">
+		SELECT n.num, n.userId, userName, subject, content, hitCount, created, notice
+		FROM notice n
+		JOIN member1 m1 ON n.userId=m1.userId
+		WHERE n.num=#{num}
+	</select>
+
+	<select id="preReadNotice" parameterType="map"
+		resultType="com.sp.notice.Notice">
+		SELECT num, subject
+		FROM notice n
+		JOIN member1 m ON n.userId = m.userId
+		<where>
+			<if test="keyword!=null and keyword!=''">
+				<include refid="where-list"></include>
+			</if>
+			AND (num &gt; #{num})
+		</where>
+		ORDER BY num ASC
+		FETCH FIRST 1 ROWS ONLY
+
+	</select>
+
+	<select id="nextReadNotice" parameterType="map"
+		resultType="com.sp.notice.Notice">
+		SELECT num, subject
+		FROM notice n
+		JOIN member1 m ON n.userId = m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list" />
+			</if>
+			AND (num &lt; #{num})
+		</where>
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+
+	<select id="updateHitCount" parameterType="Integer">
+		UPDATE notice SET
+		hitCount = hitCount+1 WHERE num=#{num}
+	</select>
+
+	<update id="updateNotice" parameterType="com.sp.notice.Notice">
+		UPDATE notice SET subject = #{subject}, content = #{content},
+						  notice = #{notice}
+		WHERE num = #{num}
+	</update>
+
+	<delete id="deleteNotice" parameterType="Integer">
+		DELETE FROM notice WHERE num = #{num}
+	</delete>
+
+	<delete id="deleteFile" parameterType="map">
+		DELETE FROM noticeFile WHERE ${field} = #{num}
+	</delete>
+
+	<select id="readFile" parameterType="Integer"
+		resultType="com.sp.notice.Notice">
+		SELECT fileNum, num, saveFilename, originalFilename,
+		fileSize
+		FROM noticeFile
+		WHERE fileNum = #{fileNum}
+	</select>
+
+	<select id="listFile" parameterType="Integer"
+		resultType="com.sp.notice.Notice">
+		SELECT fileNum, num, saveFilename, originalFilename,
+		fileSize
+		FROM noticeFile
+		WHERE num=#{num}
+	</select>
+
+
 
 </mapper>
