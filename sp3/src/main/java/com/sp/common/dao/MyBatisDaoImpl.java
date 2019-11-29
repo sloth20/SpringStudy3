@@ -32,7 +32,6 @@ public class MyBatisDaoImpl implements CommonDAO {
 			result = sqlSession.insert(id, value);
 		} catch (Exception e) {
 			logger.error(e.toString());
-			
 			throw e;
 		} finally {
 		}
