@@ -8,10 +8,10 @@ import javax.media.jai.JAI;
 import javax.media.jai.RenderedOp;
 
 import org.springframework.stereotype.Service;
-
+ 
 @Service("imageManager")
 public class ImageManager {
-	/**
+	/** 
 	 * 이미지의 폭(width)을 구하는 메소드
 	 * 이미지 폭 및 높이를 구하기 위해서는  JAI(Java Advanced Imaging) 라이브러리 필요
 	 *     메이븐 -> groupId: javax.media, artifactId : jai_codec, jai_core, version:1.1.3

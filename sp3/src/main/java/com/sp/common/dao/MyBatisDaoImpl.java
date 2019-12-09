@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository("dao")
 public class MyBatisDaoImpl implements CommonDAO {
-	
+	 
 	@Autowired
 	private SqlSession sqlSession;
 	

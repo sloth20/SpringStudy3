@@ -150,7 +150,8 @@ public class BoardController {
 		if (dto == null)
 			return "redirect:/bbs/list?" + query;
 
-		dto.setContent(myUtil.htmlSymbols(dto.getContent()));
+		// 스마트 에디터를 사용할 경우 엔터를 <br>로 고치지 않는다.
+		// dto.setContent(myUtil.htmlSymbols(dto.getContent()));
 
 		int count = service.boardLikeCount(num);
 		dto.setBoardLikeCount(count);

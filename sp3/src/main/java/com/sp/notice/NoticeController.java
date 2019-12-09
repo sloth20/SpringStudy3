@@ -213,7 +213,7 @@ public class NoticeController {
 
 		// 스타일로 처리하는 경우 : style="white-space:pre;"
 
-		dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
+		// dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 
 		Map<String, Object> map = new HashMap<>();
 

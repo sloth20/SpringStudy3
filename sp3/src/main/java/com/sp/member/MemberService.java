@@ -19,4 +19,6 @@ public interface MemberService {
 	
 	public int dataCount(Map<String, Object> map);
 	public List<Member> listMember(Map<String, Object> map);
+	
+	public void generatePwd(Member dto) throws Exception;
 }

@@ -80,12 +80,20 @@
 			<mvc:exclude-mapping path="/member/member" />
 			<mvc:exclude-mapping path="/member/userIDCheck" />
 			<mvc:exclude-mapping path="/member/complete" />
-
+			<mvc:exclude-mapping path="/member/pwdFind"/>
+						
 			<bean class="com.sp.member.LoginCheckInterceptor" />
 
 		</mvc:interceptor>
 
 	</mvc:interceptors>
+	
+	<!-- 웹 소켓 -->
+	<bean id="mySocketHandler" class="com.sp.chat.MySocketHandler"/>
+		<websocket:handlers>
+			<websocket:mapping handler="mySocketHandler" path="/chat.msg"/>
+		</websocket:handlers>
+
 
 	<!-- 예외처리 -->
 	<!-- <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> 

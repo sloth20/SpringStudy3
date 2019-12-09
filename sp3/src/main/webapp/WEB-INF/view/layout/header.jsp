@@ -51,17 +51,23 @@
         <li>
             <a href="#">커뮤니티</a>
             <ul>
-                <li><a href="<%=cp%>/guest/guest">방명록</a></li>
-                <li><a href="<%=cp%>/bbs/list">게시판</a></li>
-                <li><a href="#">답변형 게시판</a></li>
+                <li><a href="${pageContext.request.contextPath}/guest/guest">방명록</a></li>
+                <li><a href="${pageContext.request.contextPath}/bbs/list">게시판</a></li>
+                <li><a href="${pageContext.request.contextPath}/board/list">답변형 게시판</a></li>
                 <li><a href="#">자료실</a></li>
-                <li><a href="#">포토갤러리</a></li>
-                <li><a href="#">채팅</a></li>
+                <li><a href="<%=cp%>/photo/list">포토갤러리</a></li>
+                <li><a href="${pageContext.request.contextPath}/chat/main">채팅</a></li>
             </ul>
         </li>
 
         <li>
             <a href="#">스터디룸</a>
+            <ul>
+                <li><a href="#">프로그래밍</a></li>
+                <li><a href="#">데이터베이스</a></li>
+                <li><a href="#">웹</a></li>
+                <li><a href="${pageContext.request.contextPath}/scheduler/main">스케쥴러</a></li>
+            </ul>
         </li>
 
         <li>
@@ -81,9 +87,10 @@
             <ul>
                 <li><a href="#" style="margin-left:230px; " onmouseover="this.style.marginLeft='230px';">정보확인</a></li>
                 <li><a href="#">쪽지</a></li>
-                <li><a href="#">일정관리</a></li>
+                <li><a href="${pageContext.request.contextPath}/schedule/month">일정관리</a></li>
                 <li><a href="#">친구관리</a></li>
                 <li><a href="#">사진첩</a></li>
+				<li><a href="<%=cp%>/mail/send">메일보내기</a></li>
             </ul>
         </li>
         </c:if>

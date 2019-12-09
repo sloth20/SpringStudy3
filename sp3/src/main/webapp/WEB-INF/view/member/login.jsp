@@ -90,7 +90,7 @@ function sendLogin() {
 		  <tr align="center" height="45">
 		      <td>
 		       		<a href="<%=cp%>/">아이디찾기</a>&nbsp;&nbsp;&nbsp;
-		       		<a href="<%=cp%>/">패스워드찾기</a>&nbsp;&nbsp;&nbsp;
+		       		<a href="<%=cp%>/member/pwdFind">패스워드찾기</a>&nbsp;&nbsp;&nbsp;
 		       		<a href="<%=cp%>/member/member">회원가입</a>
 		      </td>
 		  </tr>
